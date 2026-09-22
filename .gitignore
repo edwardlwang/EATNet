@@ -1,0 +1,60 @@
+# ==================== 数据集 ====================
+# data/TrainDataset、data/TestDataset 下是 COD10K / CAMO / CHAMELEON / NC4K 原始数据（约 2.4G），
+# 体积过大且可从官方渠道重新下载，不入库。
+# 注意：这里必须写 data/* 而不是 data/。若直接排除 data/ 目录本身，
+# 下面的 ! 反忽略会失效（git 不允许反忽略「父目录已被排除」的文件）。
+data/*
+# 保留目录占位文件，克隆后仍有 data/ 目录（沿用本仓库 1.txt 占位的约定）。
+!data/1.txt
+!data/README.md
+
+# ==================== 权重 / 模型文件 ====================
+# models/pvt_v2_b2.pth 是 PVTv2 骨干的 ImageNet 预训练权重（约 97M），
+# checkpoints/ 下是 train.py 保存的 EATNet-N.pth 训练快照，一律不入库。
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.pkl
+
+# ==================== 推理结果 ====================
+# test.py 输出到 results/<方法名>/<数据集>/*.png，是可由权重重新生成的预测图（约 460M）。
+results/*/
+# 保留 results/1.txt 占位文件。
+!results/1.txt
+
+# ==================== 训练 / 评估日志 ====================
+# train.py 追加写 log/EATNet.txt，val.py 追加写 evalresults.txt。
+log/*.txt
+!log/1.txt
+
+# ==================== Python ====================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+# 虚拟环境
+.venv/
+venv/
+env/
+ENV/
+
+# ==================== 编辑器 / IDE ====================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ==================== Jupyter ====================
+.ipynb_checkpoints/
+
+# ==================== 操作系统 ====================
+.DS_Store
+Thumbs.db
+desktop.ini

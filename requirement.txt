@@ -1,0 +1,36 @@
+# EATNet 运行环境
+# 实测通过：Python 3.13.9 / CUDA 13.0 / Linux
+#
+# 安装：
+#   pip install -r requirement.txt
+#
+# 注意：CUDA 版 torch 需按自己的驱动选择构建，请先照着
+#   https://pytorch.org/get-started/locally/
+# 装好 torch 与 torchvision（本项目验证过的组合为 torch 2.12.0+cu130 + torchvision 0.27.0），
+# 再执行上面的命令装其余依赖。
+
+torch==2.12.0
+torchvision==0.27.0
+
+# 骨干网络 PVTv2（net/pvtv2.py 依赖 timm 的 DropPath / trunc_normal_ / register_model）
+timm==1.0.27
+
+# 数据加载与推理（utils/tdataloader.py, etest.py）
+numpy==2.3.0
+opencv-python-headless==4.14.0.94
+Pillow==12.0.0
+imageio==2.37.2
+tqdm==4.67.1
+
+# 评估指标（eval.py）
+# 注意：PyPI 上的发行名是 pysodmetrics，而导入名是 py_sod_metrics，两者不一致。
+# 它会带入 scipy / scikit-image / scikit-learn 三个依赖，故一并锁定。
+pysodmetrics==1.6.2
+scipy==1.16.3
+scikit-image==0.25.2
+scikit-learn==1.7.2
+
+# 关于 cv2：
+#   本项目只用 cv2 的 imread / imwrite / dilate，headless 版本足够，且无需 GUI 依赖。
+#   若你需要 cv2.imshow 等 GUI 功能，请把 opencv-python-headless 换成同版本的 opencv-python。
+#   切勿同时安装 opencv-python 和 opencv-python-headless，两者都提供 cv2 模块会互相覆盖。
